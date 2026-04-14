@@ -1,0 +1,532 @@
+/* ── ALL @imports MUST BE FIRST ── */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Geist via CDN */
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Regular.woff2') format('woff2');
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Medium.woff2') format('woff2');
+  font-weight: 500; font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Bold.woff2') format('woff2');
+  font-weight: 700; font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/Geist-Black.woff2') format('woff2');
+  font-weight: 900; font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');
+  font-weight: 400; font-display: swap;
+}
+
+/* ── TOKENS ── */
+:root {
+  --font-sans:    'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font-mono:    'Geist Mono', 'Space Mono', monospace;
+
+  --bg:        #000;
+  --bg1:       #0a0a0a;
+  --bg2:       #111;
+  --bg3:       #1a1a1a;
+  --text:      #ededed;
+  --text2:     #a1a1aa;
+  --text3:     #52525b;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.14);
+  --container: 1280px;
+  --pad-x:     clamp(16px, 4vw, 80px);
+  --section-py: clamp(48px, 8vw, 96px);
+}
+html.light {
+  --bg:    #fff;  --bg1: #fafafa; --bg2: #f4f4f5; --bg3: #e4e4e7;
+  --text:  #000;  --text2:#52525b; --text3:#a1a1aa;
+  --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.16);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background .3s, color .3s;
+  overflow-x: hidden;
+}
+
+/* ── TYPOGRAPHY ── */
+h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+}
+p, span, li, a { font-family: var(--font-body); }
+code, kbd, pre, .mono { font-family: var(--font-mono); }
+
+/* ── LAYOUT ── */
+.page-container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+.page-section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
+
+/* ── GRADIENT TEXT ── */
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── SPOTLIGHT ── */
+@keyframes spotlight {
+  0%   { opacity:0; transform:translate(-72%,-62%) skewX(-23deg) skewY(14deg) scaleX(1.3) }
+  100% { opacity:1; transform:translate(-50%,-40%) skewX(-23deg) skewY(14deg) scaleX(1.3) }
+}
+.animate-spotlight { animation: spotlight 2s ease .75s 1 forwards }
+
+/* ── PULSE ── */
+@keyframes ping { 75%,100%{ transform:scale(2); opacity:0 } }
+.animate-ping { animation: ping 1s cubic-bezier(0,0,.2,1) infinite }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE GRID UTILITIES
+   ══════════════════════════════════════════ */
+
+/* 2-col grid → stacks on mobile */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+/* 3-col grid → stacks on mobile */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+/* 4-col grid → 2-col on mobile */
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+/* 5-col flow → 2-col on mobile */
+.grid-5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+/* Hero stats — 3 cols → 1 col on mobile */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* Bento grid — 3 cols → 1 col on mobile */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+/* Contact grid */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+/* Testimonials layout */
+.testimonial-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 80px;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Case study decision table */
+.decision-grid {
+  display: grid;
+  grid-template-columns: 64px 1fr 1fr 1fr;
+}
+
+/* Case study flow steps */
+.flow-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+/* Module breakdown grids */
+.module-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.module-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Hero headline — prevent overflow on mobile */
+.hero-headline {
+  white-space: nowrap;
+}
+.hero-pill-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+}
+.hero-pill {
+  min-width: 280px;
+}
+.hero-subtext-line {
+  display: block;
+  white-space: nowrap;
+}
+
+/* Case study hero side stats */
+.hero-side-stats {
+  position: absolute;
+  right: 80px;
+  bottom: 80px;
+  flex-direction: column;
+  gap: 24px;
+  /* display is controlled by JS inline style on desktop, hidden via CSS on mobile */
+}
+
+/* Nav links — hide on mobile, show on desktop */
+.nav-desktop { display: flex; }
+.nav-mobile  { display: none; }
+
+/* Tabs nav overflow fix on mobile */
+.tabs-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs-scroll::-webkit-scrollbar { display: none; }
+
+/* Impact stat counters */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+/* Before/After comparison */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* ══════════════════════════════════════════
+   MOBILE BREAKPOINT  ≤ 768px
+   ══════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  :root {
+    --section-py: 48px;
+    --pad-x: 20px;
+  }
+
+  /* Grids collapse to 1 column */
+  .grid-2  { grid-template-columns: 1fr; gap: 32px; }
+  .grid-3  { grid-template-columns: 1fr; gap: 16px; }
+  .grid-4  { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-5  { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Stats → single col */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    border-radius: 16px;
+  }
+  .stats-grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .stats-grid > div:last-child {
+    border-bottom: none;
+  }
+
+  /* Bento grid → single col */
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-grid > div { grid-column: span 1 !important; }
+
+  /* Contact → stack */
+  .contact-grid { grid-template-columns: 1fr; }
+
+  /* Testimonials → vertical */
+  .testimonial-layout {
+    flex-direction: column;
+    gap: 32px;
+    padding: 0 16px;
+  }
+
+  /* Decision table → stack */
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+  .decision-grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 20px;
+  }
+  .decision-grid > div:last-child {
+    border-bottom: none;
+  }
+
+  /* Flow / process steps */
+  .flow-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Module grids */
+  .module-grid-3 { grid-template-columns: 1fr; }
+  .module-grid-4 { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Impact stats → 2 col */
+  .impact-grid { grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+
+  /* Before/After → stack */
+  .compare-grid { grid-template-columns: 1fr; }
+
+  /* Hero headline — allow wrap */
+  .hero-headline { white-space: normal; }
+  .hero-pill-row { flex-wrap: wrap; gap: 8px; }
+  .hero-pill { min-width: unset; width: 100%; }
+  .hero-subtext-line { white-space: normal; }
+
+  /* Hide hero side stats on mobile */
+  .hero-side-stats { display: none; }
+
+  /* Nav */
+  .nav-desktop { display: none !important; }
+  .nav-mobile  { display: flex !important; }
+
+  /* Case study nav links — hide on mobile */
+  .cs-nav-links { display: none; }
+
+  /* Case study contact padding */
+  .cs-contact-padding { padding: 28px 20px !important; }
+
+  /* Tabs — allow horizontal scroll on mobile */
+  .tabs-pill-row {
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .tabs-pill-row::-webkit-scrollbar { display: none; }
+
+  /* Case study hero — fix large number overflow */
+  .cs-hero-bg-number { display: none; }
+
+  /* Portfolio card description text */
+  .portfolio-desc { font-size: 12px !important; }
+
+  /* Footer flex direction */
+  .footer-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  /* ── Case study hero — FIX empty space on mobile ──
+     The hero uses justifyContent:flex-end + minHeight:100vh
+     which pushes content to bottom and leaves huge gap above.
+     On mobile we override to justify from top with padding instead. */
+  .cs-hero-section {
+    min-height: auto !important;
+    justify-content: flex-start !important;
+    padding-top: 100px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* Hide side stats with maximum specificity */
+  .hero-side-stats,
+  [class*="hero-side-stats"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Hide watermark bg number */
+  .cs-hero-bg-number,
+  [class*="cs-hero-bg-number"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* ══════════════════════════════════════════
+   TABLET BREAKPOINT  769px – 1024px
+   ══════════════════════════════════════════ */
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  :root {
+    --pad-x: 32px;
+    --section-py: 72px;
+  }
+
+  .grid-2  { gap: 40px; }
+  .grid-3  { grid-template-columns: 1fr 1fr; }
+  .grid-4  { grid-template-columns: 1fr 1fr; }
+  .grid-5  { grid-template-columns: repeat(3, 1fr); }
+
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
+  .bento-grid > [data-col="2"] { grid-column: span 2; }
+
+  .flow-grid   { grid-template-columns: repeat(3, 1fr); }
+  .module-grid-3 { grid-template-columns: 1fr 1fr; }
+  .module-grid-4 { grid-template-columns: 1fr 1fr; }
+  .impact-grid   { grid-template-columns: 1fr 1fr; }
+
+  .decision-grid {
+    grid-template-columns: 1fr;
+  }
+  .decision-grid > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 16px 20px;
+  }
+  .decision-grid > div:last-child { border-bottom: none; }
+
+  .hero-side-stats { right: 32px; bottom: 48px; }
+  .cs-hero-bg-number { font-size: clamp(80px, 14vw, 160px) !important; }
+
+  .contact-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ══════════════════════════════════════════
+   CASE STUDY NAV — SPECIFIC FIXES
+   ══════════════════════════════════════════ */
+
+/* Hide section links on mobile */
+.cs-nav-links {
+  display: flex;
+}
+
+/* Hide watermark number on small screens */
+.cs-hero-bg-number {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  /* Case study nav — only show brand + back button */
+  .cs-nav-links {
+    display: none !important;
+  }
+
+  /* Case study nav pill — don't let it overflow */
+  .cs-nav-pill {
+    gap: 8px !important;
+    padding: 8px 14px !important;
+  }
+
+  /* Hero watermark number — hidden */
+  .cs-hero-bg-number {
+    display: none !important;
+  }
+
+  /* Hero side stats — hidden */
+  .hero-side-stats {
+    display: none !important;
+  }
+
+  /* Hero h1 line-height fix */
+  .cs-hero-h1 {
+    line-height: 1.05 !important;
+  }
+
+  /* Case study hero min-height — shorter on mobile */
+  .cs-hero {
+    min-height: 100svh;
+    padding-top: 80px !important;
+    padding-bottom: 40px !important;
+  }
+
+  /* Tabs card stack — reduce height on mobile */
+  .tabs-card-stack {
+    height: 420px !important;
+  }
+
+  /* Decision table rows — stack vertically */
+  .decision-row {
+    grid-template-columns: 1fr !important;
+  }
+  .decision-row > div {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  }
+  .decision-row > div:last-child {
+    border-bottom: none !important;
+  }
+
+  /* CTA section headline */
+  .cs-cta-h2 {
+    font-size: clamp(36px, 10vw, 64px) !important;
+  }
+
+  /* Footer row — vertical on mobile */
+  .cs-footer-row {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: flex-start !important;
+  }
+
+  /* Section heading sizes */
+  .cs-section-h2 {
+    font-size: clamp(26px, 6vw, 56px) !important;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet — show fewer nav links */
+  .cs-nav-links {
+    gap: 12px !important;
+  }
+  .cs-nav-links a {
+    font-size: 11px !important;
+  }
+}
