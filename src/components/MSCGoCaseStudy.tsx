@@ -6,6 +6,7 @@ import {
   CheckCircle, Settings, FileText, MapPin,
   TrendingUp, Zap, Star, Shield,
 } from 'lucide-react'
+import { Tabs } from './ui/tabs'
 
 interface MSCGoCaseStudyProps { onBack: () => void }
 
@@ -290,91 +291,6 @@ const MSC_SCREENS = [
   { title: 'Team', value: 'employees', tag: '05 — Team', title2: 'Employee Management', desc: 'Add mechanics and managers, assign roles and workshops, and monitor real-time workload distribution.', content: <EmployeeScreen /> },
 ]
 
-// ─────────────────────────────────────────
-// Mobile Tabs — Aceternity stacking logic
-// ─────────────────────────────────────────
-
-function MobileTabs() {
-  const [activeIdx, setActiveIdx] = useState(0)
-  const [hovering, setHovering] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const autoPlayInterval = 5000
-
-  useEffect(() => {
-    function handleKey(e: KeyboardEvent) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); setActiveIdx(i => (i + 1) % MSC_SCREENS.length); setProgress(0) }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); setActiveIdx(i => (i - 1 + MSC_SCREENS.length) % MSC_SCREENS.length); setProgress(0) }
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
-  }, [])
-
-  useEffect(() => {
-    if (hovering) return
-    let start: number | null = null; let raf: number
-    function tick(ts: number) {
-      if (start === null) start = ts
-      const elapsed = ts - start
-      setProgress(Math.min((elapsed / autoPlayInterval) * 100, 100))
-      if (elapsed >= autoPlayInterval) { setActiveIdx(i => (i + 1) % MSC_SCREENS.length); start = ts; setProgress(0) }
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [hovering, activeIdx])
-
-  return (
-    <div style={{ width: '100%' }} onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
-      {/* Tab buttons */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexWrap: 'wrap', marginBottom: 24 }}>
-        {MSC_SCREENS.map((s, i) => (
-          <button key={s.value} onClick={() => { setActiveIdx(i); setProgress(0) }}
-            style={{ position: 'relative', padding: '7px 16px', borderRadius: 9999, border: 'none', background: 'transparent', fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 500, color: i === activeIdx ? '#fff' : '#6b7280', cursor: 'pointer', transition: 'color 0.2s', outline: 'none' }}>
-            {i === activeIdx && <motion.div layoutId="msc-active-tab" style={{ position: 'absolute', inset: 0, borderRadius: 9999, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.15)' }} transition={{ type: 'spring', bounce: 0.3, duration: 0.5 }} />}
-            <span style={{ position: 'relative', zIndex: 1 }}>{s.title}</span>
-          </button>
-        ))}
-        {/* Progress bar */}
-        <div style={{ flex: 1, height: 2, background: 'rgba(255,255,255,0.06)', borderRadius: 9999, overflow: 'hidden', minWidth: 40, marginLeft: 8, opacity: hovering ? 0 : 1, transition: 'opacity 0.3s' }}>
-          <div style={{ height: '100%', width: `${progress}%`, background: `linear-gradient(90deg, ${ACCENT}, ${ACCENT_DARK})`, borderRadius: 9999, transition: 'width 0.05s linear' }} />
-        </div>
-      </div>
-
-      {/* Keyboard hint */}
-      <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 24, opacity: 0.45 }}>
-        {['←', '→'].map(k => <span key={k} style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 10, color: '#9ca3af', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, padding: '2px 7px' }}>{k}</span>)}
-        <span style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 10, color: '#555', letterSpacing: '0.1em' }}>navigate screens</span>
-      </div>
-
-      {/* Card stack */}
-      <div style={{ position: 'relative', width: '100%', paddingTop: 'clamp(60px,10vw,100px)', perspective: '1000px', overflow: 'visible' }}>
-        <div style={{ position: 'relative', width: '100%', height: 'clamp(340px,55vw,520px)' }}>
-          {MSC_SCREENS.map((s, i) => {
-            const offset = i - activeIdx
-            let y = 0, scale = 1, opacity = 0, zIndex = 0
-            if (offset === 0) { y = 0; scale = 1; opacity = 1; zIndex = 10 }
-            else if (offset === 1) { y = hovering ? -52 : 0; scale = hovering ? 0.96 : 1; opacity = hovering ? 0.75 : 0; zIndex = 9 }
-            else if (offset === 2) { y = hovering ? -92 : 0; scale = hovering ? 0.92 : 1; opacity = hovering ? 0.5 : 0; zIndex = 8 }
-            return (
-              <motion.div key={s.value} animate={{ y, scale, opacity, zIndex }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', transformOrigin: 'top center', pointerEvents: offset === 0 ? 'auto' : 'none', willChange: 'transform, opacity' }}>
-                <PhoneMockup screen={{ tag: s.tag, title: s.title2, desc: s.desc, content: s.content }} />
-              </motion.div>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Dot indicators */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 28 }}>
-        {MSC_SCREENS.map((s, i) => (
-          <button key={s.value} onClick={() => { setActiveIdx(i); setProgress(0) }}
-            style={{ width: i === activeIdx ? 20 : 6, height: 6, borderRadius: 9999, border: 'none', background: i === activeIdx ? ACCENT : 'rgba(255,255,255,0.15)', cursor: 'pointer', padding: 0, transition: 'width 0.3s ease, background 0.3s ease' }} />
-        ))}
-      </div>
-    </div>
-  )
-}
 
 // ─────────────────────────────────────────
 // Main export
@@ -663,12 +579,18 @@ export function MSCGoCaseStudy({ onBack }: MSCGoCaseStudyProps) {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 'clamp(14px,1.8vw,17px)', fontWeight: 300, color: '#6b7280', lineHeight: 1.7, maxWidth: 520, marginBottom: 40 }}>
+            <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 'clamp(14px,1.8vw,17px)', fontWeight: 300, color: '#6b7280', lineHeight: 1.7, maxWidth: 520, marginBottom: 24 }}>
               Built on a 384×854 mobile frame with a 16px grid — every module from onboarding to analytics, designed for the field.
             </p>
           </Reveal>
           <div style={{ perspective: '1000px', paddingBottom: 40, overflow: 'visible' }}>
-            <MobileTabs />
+            <Tabs
+              tabs={MSC_SCREENS.map(s => ({
+                title: s.title,
+                value: s.value,
+                content: <PhoneMockup screen={{ tag: s.tag, title: s.title2, desc: s.desc, content: s.content }} />,
+              }))}
+            />
           </div>
         </div>
       </section>

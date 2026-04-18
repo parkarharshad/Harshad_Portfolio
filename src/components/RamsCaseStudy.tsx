@@ -238,7 +238,7 @@ const SCREEN_TABS = [
   {
     title: 'Dashboard',
     value: 'dashboard',
-    // imageSrc: '/rams-dashboard.png',
+    imageSrc: '/Dashboard.png',
     tag: '01 — Dashboard',
     title2: 'Manager Dashboard',
     desc: 'Centralized command center giving safety managers real-time visibility across all warehouses, assets, and open issues.',
@@ -302,7 +302,7 @@ function MockupShowcase() {
         desc={s.desc}
         color={s.color}
         gradient={s.gradient}
-        // imageSrc={s.imageSrc}   ← uncomment when screenshots are ready
+        imageSrc={s.imageSrc}
       />
     ),
   }))
@@ -329,28 +329,6 @@ function MockupShowcase() {
           }}>
             High-fidelity screens built from real workflow research — every screen solves a specific pain point.
           </p>
-        </Reveal>
-
-        {/* Keyboard hint */}
-        <Reveal delay={0.15}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            marginBottom: 40, opacity: 0.5,
-          }}>
-            {['←', '→'].map(k => (
-              <span key={k} style={{
-                fontFamily: "'Geist Mono','Space Mono',monospace",
-                fontSize: 10, color: '#9ca3af',
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                borderRadius: 4, padding: '2px 7px',
-              }}>{k}</span>
-            ))}
-            <span style={{
-              fontFamily: "'Geist Mono','Space Mono',monospace",
-              fontSize: 10, color: '#555', letterSpacing: '0.1em',
-            }}>navigate screens</span>
-          </div>
         </Reveal>
 
         {/*
