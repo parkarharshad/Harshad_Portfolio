@@ -277,7 +277,7 @@ const SCREEN_TABS = [
   {
     title: 'Reports',
     value: 'reports',
-    // imageSrc: '/rams-reports.png',
+    imageSrc: '/Report.jpg',
     tag: '05 — Reports',
     title2: 'Analytics & Reports',
     desc: 'Visual dashboards with exportable compliance reports, team velocity charts, and issue trend analytics.',

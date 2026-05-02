@@ -579,18 +579,12 @@ export function MSCGoCaseStudy({ onBack }: MSCGoCaseStudyProps) {
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 'clamp(14px,1.8vw,17px)', fontWeight: 300, color: '#6b7280', lineHeight: 1.7, maxWidth: 520, marginBottom: 24 }}>
+            <p style={{ fontFamily: "'Inter',sans-serif", fontSize: 'clamp(14px,1.8vw,17px)', fontWeight: 300, color: '#6b7280', lineHeight: 1.7, maxWidth: 520, marginBottom: 40 }}>
               Built on a 384×854 mobile frame with a 16px grid — every module from onboarding to analytics, designed for the field.
             </p>
           </Reveal>
           <div style={{ perspective: '1000px', paddingBottom: 40, overflow: 'visible' }}>
-            <Tabs
-              tabs={MSC_SCREENS.map(s => ({
-                title: s.title,
-                value: s.value,
-                content: <PhoneMockup screen={{ tag: s.tag, title: s.title2, desc: s.desc, content: s.content }} />,
-              }))}
-            />
+            <MobileTabs />
           </div>
         </div>
       </section>
