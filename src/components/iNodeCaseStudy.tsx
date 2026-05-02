@@ -132,7 +132,7 @@ function DesktopMockup({ screen }: {
         {screen.content}
       </div>
       {/* Caption */}
-      <div style={{ padding: '18px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, background: 'rgba(14,16,23,0.95)' }}>
+      <div className="cs-mockup-caption" style={{ padding: '18px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, background: 'rgba(14,16,23,0.95)' }}>
         <div style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 16, color: '#e4e6eb', marginBottom: 5 }}>{screen.title}</div>
         <div style={{ fontFamily: "'Inter',sans-serif", fontWeight: 300, fontSize: 14, color: '#6b7280', lineHeight: 1.6 }}>{screen.desc}</div>
       </div>
@@ -480,7 +480,7 @@ export function INodeCaseStudy({ onBack }: INodeCaseStudyProps) {
             <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('inode-solution')?.scrollIntoView({ behavior: 'smooth' })}
               style={{ background: ACCENT, color: '#000', border: 'none', fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontSize: 14, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' as const, cursor: 'pointer', padding: '14px 32px', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
-              Explore Case Study <ArrowUpRight size={16} />
+              Explore Case Study <ArrowUpRight size={16} className="cs-hero-cta-arrow" />
             </motion.button>
             <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
               onClick={() => document.getElementById('inode-decisions')?.scrollIntoView({ behavior: 'smooth' })}

@@ -496,7 +496,17 @@ code, kbd, pre, .mono { font-family: var(--font-mono); }
 
   /* Tabs card stack — reduce height on mobile */
   .tabs-card-stack {
-    height: 420px !important;
+    height: 320px !important;
+  }
+
+  /* Hide mockup caption bar on mobile — image fills full height */
+  .cs-mockup-caption {
+    display: none !important;
+  }
+
+  /* Hide ArrowUpRight CTA button on mobile */
+  .cs-hero-cta-arrow {
+    display: none !important;
   }
 
   /* Decision table rows — stack vertically */

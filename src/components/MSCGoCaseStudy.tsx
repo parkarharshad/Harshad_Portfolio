@@ -100,7 +100,7 @@ function DesktopMockup({ screen }: { screen: { tag: string; title: string; desc:
           <img src={screen.imageSrc} alt={screen.title} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
         ) : screen.content}
       </div>
-      <div style={{ padding: '18px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, background: 'rgba(14,16,23,0.95)' }}>
+      <div className="cs-mockup-caption" style={{ padding: '18px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, background: 'rgba(14,16,23,0.95)' }}>
         <div style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 16, color: '#e4e6eb', marginBottom: 5 }}>{screen.title}</div>
         <div style={{ fontFamily: "'Inter',sans-serif", fontWeight: 300, fontSize: 14, color: '#6b7280', lineHeight: 1.6 }}>{screen.desc}</div>
       </div>
@@ -424,7 +424,7 @@ export function MSCGoCaseStudy({ onBack }: MSCGoCaseStudyProps) {
             style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} onClick={() => document.getElementById('msc-solution')?.scrollIntoView({ behavior: 'smooth' })}
               style={{ background: ACCENT, color: '#000', border: 'none', fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontSize: 'clamp(12px,1.5vw,14px)', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' as const, cursor: 'pointer', padding: 'clamp(11px,1.5vw,14px) clamp(20px,3vw,32px)', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
-              Explore Case Study <ArrowUpRight size={16} />
+              Explore Case Study <ArrowUpRight size={16} className="cs-hero-cta-arrow" />
             </motion.button>
             <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => document.getElementById('msc-decisions')?.scrollIntoView({ behavior: 'smooth' })}
               style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#9ca3af', fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 'clamp(11px,1.3vw,12px)', letterSpacing: '0.1em', cursor: 'pointer', padding: 'clamp(11px,1.5vw,14px) clamp(20px,3vw,32px)', borderRadius: 14 }}>

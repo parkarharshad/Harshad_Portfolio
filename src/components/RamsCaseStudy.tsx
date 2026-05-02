@@ -205,7 +205,7 @@ function ScreenContent({
       </div>
 
       {/* Caption */}
-      <div style={{
+      <div className="cs-mockup-caption" style={{
         padding: '18px 24px',
         borderTop: '1px solid rgba(255,255,255,0.06)',
         flexShrink: 0,
@@ -489,7 +489,7 @@ export function RamsCaseStudy({ onBack }: RamsCaseStudyProps) {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={heroInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.45 }} style={{ display: 'flex', gap: 12, flexWrap: 'wrap' as const }}>
             <motion.button whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }} onClick={() => document.getElementById('rams-solution')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: '#fff', color: '#000', border: 'none', fontFamily: "'Plus Jakarta Sans', 'Inter', sans-serif", fontSize: 14, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' as const, cursor: 'pointer', padding: '14px 32px', borderRadius: 14, display: 'flex', alignItems: 'center', gap: 8 }}>
-              Explore Case Study <ArrowUpRight size={16} />
+              Explore Case Study <ArrowUpRight size={16} className="cs-hero-cta-arrow" />
             </motion.button>
             <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={() => document.getElementById('rams-decisions')?.scrollIntoView({ behavior: 'smooth' })} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#9ca3af', fontFamily: "'Geist Mono', 'Space Mono', monospace", fontSize: 12, letterSpacing: '0.1em', cursor: 'pointer', padding: '14px 32px', borderRadius: 14 }}>
               Key Decisions →

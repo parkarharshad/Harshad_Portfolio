@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { cn } from "./utils";
 
@@ -30,6 +30,14 @@ export const Tabs = ({
   const [active, setActive] = useState<Tab>(propTabs[0]);
   const [tabs, setTabs] = useState<Tab[]>(propTabs);
   const [hovering, setHovering] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const moveSelectedTabToTop = (idx: number) => {
     const newTabs = [...propTabs];
@@ -87,12 +95,16 @@ export const Tabs = ({
       </div>
 
       {/* ── Card stack ── */}
-      {/* paddingTop gives room for hover-peek cards to fan upward without hitting the tab bar */}
       <div
-        style={{ position: "relative", width: "100%", paddingTop: 120, overflow: "visible" }}
+        style={{
+          position: "relative",
+          width: "100%",
+          paddingTop: isMobile ? 0 : 120,
+          overflow: "visible",
+        }}
         className={contentClassName}
       >
-        <div style={{ position: "relative", width: "100%", height: 680 }}>
+        <div style={{ position: "relative", width: "100%", height: isMobile ? 320 : 680 }}>
           {tabs.map((tab, idx) => (
             <motion.div
               key={tab.value}
@@ -106,9 +118,11 @@ export const Tabs = ({
                 pointerEvents: idx === 0 ? "auto" : "none",
               }}
               animate={{
-                scale: 1 - idx * 0.07,
-                y: hovering ? idx * -40 : idx * 8,
-                opacity: idx < 4 ? Math.max(0, 1 - idx * 0.2) : 0,
+                scale: isMobile ? 1 : 1 - idx * 0.07,
+                y: isMobile ? 0 : hovering ? idx * -40 : idx * 8,
+                opacity: isMobile
+                  ? idx === 0 ? 1 : 0
+                  : idx < 4 ? Math.max(0, 1 - idx * 0.2) : 0,
               }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
             >
@@ -116,7 +130,7 @@ export const Tabs = ({
                 <motion.div
                   key={active.value}
                   style={{ width: "100%", height: "100%" }}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: isMobile ? 16 : 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, ease: "easeOut" }}
                 >
