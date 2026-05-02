@@ -22,7 +22,7 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start 10%", "end 60%"],
+    offset: ["start 10%", "end 80%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
@@ -44,9 +44,9 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
               {/* Dot — background matches page so line "passes through" */}
               <div style={{
                 width: 16, height: 16, borderRadius: '50%',
-                background: '#0a0a0a',
+                background: 'var(--bg)',
                 border: '2px solid #6366f1',
-                boxShadow: '0 0 0 3px #0a0a0a, 0 0 0 5px rgba(99,102,241,0.2)',
+                boxShadow: '0 0 0 3px var(--bg), 0 0 0 5px rgba(99,102,241,0.2)',
                 zIndex: 10, position: 'relative', flexShrink: 0,
               }} />
             </div>
@@ -74,7 +74,7 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
           left: 19,
           top: 0, bottom: 0,
           width: 2,
-          background: 'rgba(255,255,255,0.06)',
+          background: 'var(--border2)',
           overflow: 'hidden',
           zIndex: 0,
         }}>

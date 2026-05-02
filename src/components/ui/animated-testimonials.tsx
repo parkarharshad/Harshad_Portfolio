@@ -66,7 +66,7 @@ export function AnimatedTestimonials({ testimonials, autoplay = true }: { testim
             style={{ display: 'flex', flexDirection: 'column', gap: 16 }}
           >
             <div>
-              <h3 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 20, color: '#fff', marginBottom: 4 }}>
+              <h3 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 20, color: 'var(--text)', marginBottom: 4 }}>
                 {testimonials[active].name}
               </h3>
               <p style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 11, color: '#52525b', letterSpacing: '.06em' }}>
@@ -81,15 +81,15 @@ export function AnimatedTestimonials({ testimonials, autoplay = true }: { testim
 
         {/* Nav buttons */}
         <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
-          <button onClick={prev} style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background .2s' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.12)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)' }}>
-            <ArrowLeft size={15} color="#fff" />
+          <button onClick={prev} style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--bg3)', border: '1px solid var(--border2)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background .2s' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg2)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg3)' }}>
+            <ArrowLeft size={15} color="var(--text)" />
           </button>
-          <button onClick={next} style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background .2s' }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.12)' }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)' }}>
-            <ArrowRight size={15} color="#fff" />
+          <button onClick={next} style={{ width: 36, height: 36, borderRadius: '50%', background: 'var(--bg3)', border: '1px solid var(--border2)', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background .2s' }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg2)' }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg3)' }}>
+            <ArrowRight size={15} color="var(--text)" />
           </button>
         </div>
       </div>

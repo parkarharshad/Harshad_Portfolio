@@ -131,14 +131,13 @@ function ScreenContent({
             alt={title}
             style={{
               position: 'absolute',
-              bottom: -10,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '90%',
-              height: '90%',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
               objectFit: 'cover',
-              objectPosition: 'left top',
-              borderRadius: 12,
+              objectPosition: 'top center',
+              borderRadius: 0,
             }}
           />
         ) : (
@@ -248,7 +247,7 @@ const SCREEN_TABS = [
   {
     title: 'Inspection',
     value: 'inspection',
-    // imageSrc: '/rams-inspection.png',
+    imageSrc: '/Inspection.png',
     tag: '02 — Inspection',
     title2: 'Inspection Engine',
     desc: 'Tablet-first checklist interface designed for warehouse floors — fast, glove-friendly, and fully offline-capable.',
@@ -258,7 +257,7 @@ const SCREEN_TABS = [
   {
     title: 'Assets',
     value: 'assets',
-    // imageSrc: '/rams-assets.png',
+    imageSrc: '/Assets.png',
     tag: '03 — Assets',
     title2: 'Rack Asset Module',
     desc: 'Dedicated module for rack inspection and issue logging with severity classification and photo capture built in.',
@@ -268,7 +267,7 @@ const SCREEN_TABS = [
   {
     title: 'Tracking',
     value: 'tracking',
-    // imageSrc: '/rams-tracking.png',
+    imageSrc: '/Tracking.png',
     tag: '04 — Tracking',
     title2: 'MHE Tracking View',
     desc: 'Material Handling Equipment lifecycle tracker — from onboarding through scheduled maintenance to flagged issues.',

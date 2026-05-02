@@ -14,22 +14,20 @@ const links = [
 export function Navigation({ theme, onToggleTheme }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen]         = useState(false)
+  const dark = theme === 'dark'
 
-  // ── scroll listener ───────────────────────────────────────────
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', fn, { passive: true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  // ── close drawer on resize past md breakpoint ─────────────────
   useEffect(() => {
     const fn = () => { if (window.innerWidth >= 768) setOpen(false) }
     window.addEventListener('resize', fn)
     return () => window.removeEventListener('resize', fn)
   }, [])
 
-  // ── lock body scroll when drawer open ─────────────────────────
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -42,19 +40,40 @@ export function Navigation({ theme, onToggleTheme }: Props) {
     }, open ? 300 : 0)
   }
 
-  // ── styles ────────────────────────────────────────────────────
   const pill: React.CSSProperties = {
     display:        'flex',
     alignItems:     'center',
     justifyContent: 'space-between',
     padding:        '10px 16px',
     borderRadius:   14,
-    background:     scrolled ? 'rgba(8,8,8,0.92)' : 'transparent',
-    backdropFilter: scrolled ? 'blur(20px)'        : 'none',
+    background:     scrolled
+      ? dark ? 'rgba(8,8,8,0.92)' : 'rgba(255,255,255,0.92)'
+      : 'transparent',
+    backdropFilter: scrolled ? 'blur(20px)' : 'none',
     WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-    border:         scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
-    transition:     'all .35s ease',
+    border: scrolled
+      ? dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.1)'
+      : '1px solid transparent',
+    transition: 'all .35s ease',
   }
+
+  const iconBtnStyle = (mobile = false): React.CSSProperties => ({
+    width:          34,
+    height:         34,
+    borderRadius:   8,
+    marginLeft:     mobile ? 0 : 4,
+    border:         dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.12)',
+    background:     dark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
+    display:        'flex',
+    alignItems:     'center',
+    justifyContent: 'center',
+    color:          'var(--text2)',
+  })
+
+  const hoverBg  = dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'
+  const drawerBg = dark ? 'rgba(10,10,12,0.98)'    : 'rgba(255,255,255,0.98)'
+  const drawerBorder = dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)'
+  const dividerColor = dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)'
 
   return (
     <>
@@ -83,10 +102,10 @@ export function Navigation({ theme, onToggleTheme }: Props) {
             >
               <div style={{
                 width: 32, height: 32, borderRadius: 8,
-                background: '#fff',
+                background: dark ? '#fff' : '#000',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontFamily: "'Plus Jakarta Sans','Inter',sans-serif",
-                fontWeight: 800, fontSize: 12, color: '#000',
+                fontWeight: 800, fontSize: 12, color: dark ? '#000' : '#fff',
                 flexShrink: 0,
               }}>HP</div>
               <span style={{
@@ -122,7 +141,7 @@ export function Navigation({ theme, onToggleTheme }: Props) {
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement
                     el.style.color      = 'var(--text)'
-                    el.style.background = 'rgba(255,255,255,0.06)'
+                    el.style.background = hoverBg
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLElement
@@ -133,38 +152,24 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               ))}
 
               {/* Theme toggle */}
-              <button
-                onClick={onToggleTheme}
-                style={{
-                  width:          34,
-                  height:         34,
-                  borderRadius:   8,
-                  marginLeft:     4,
-                  border:         '1px solid var(--border2)',
-                  background:     'var(--bg2)',
-                  display:        'flex',
-                  alignItems:     'center',
-                  justifyContent: 'center',
-                  color:          'var(--text2)',
-                }}
-              >
-                {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+              <button onClick={onToggleTheme} style={iconBtnStyle()}>
+                {dark ? <Sun size={14} /> : <Moon size={14} />}
               </button>
 
               {/* CTA */}
               <button
                 onClick={() => go('#contact')}
                 style={{
-                  marginLeft:  8,
-                  padding:     '9px 20px',
+                  marginLeft:   8,
+                  padding:      '9px 20px',
                   borderRadius: 9999,
-                  background:  'var(--text)',
-                  border:      'none',
-                  fontFamily:  "'Inter',sans-serif",
-                  fontWeight:  600,
-                  fontSize:    13,
-                  color:       'var(--bg)',
-                  transition:  'opacity .2s',
+                  background:   'var(--text)',
+                  border:       'none',
+                  fontFamily:   "'Inter',sans-serif",
+                  fontWeight:   600,
+                  fontSize:     13,
+                  color:        'var(--bg)',
+                  transition:   'opacity .2s',
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = '.85' }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.opacity = '1'   }}
@@ -173,21 +178,8 @@ export function Navigation({ theme, onToggleTheme }: Props) {
 
             {/* ── Mobile controls (< 768px) ───────────────────── */}
             <div className="flex md:hidden" style={{ alignItems: 'center', gap: 8 }}>
-              <button
-                onClick={onToggleTheme}
-                style={{
-                  width:          34,
-                  height:         34,
-                  borderRadius:   8,
-                  border:         '1px solid rgba(255,255,255,0.1)',
-                  background:     'rgba(255,255,255,0.04)',
-                  display:        'flex',
-                  alignItems:     'center',
-                  justifyContent: 'center',
-                  color:          'var(--text2)',
-                }}
-              >
-                {theme === 'dark' ? <Sun size={14} /> : <Moon size={14} />}
+              <button onClick={onToggleTheme} style={iconBtnStyle(true)}>
+                {dark ? <Sun size={14} /> : <Moon size={14} />}
               </button>
 
               <button
@@ -197,8 +189,10 @@ export function Navigation({ theme, onToggleTheme }: Props) {
                   width:          36,
                   height:         36,
                   borderRadius:   8,
-                  border:         '1px solid rgba(255,255,255,0.1)',
-                  background:     open ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.04)',
+                  border:         dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.12)',
+                  background:     open
+                    ? dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'
+                    : dark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
                   display:        'flex',
                   alignItems:     'center',
                   justifyContent: 'center',
@@ -239,7 +233,7 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               position:   'fixed',
               inset:      0,
               zIndex:     90,
-              background: 'rgba(0,0,0,0.6)',
+              background: dark ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.3)',
               backdropFilter: 'blur(4px)',
               WebkitBackdropFilter: 'blur(4px)',
             }}
@@ -263,10 +257,10 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               bottom:     0,
               zIndex:     95,
               width:      'min(320px, 85vw)',
-              background: 'rgba(10,10,12,0.98)',
+              background: drawerBg,
               backdropFilter: 'blur(24px)',
               WebkitBackdropFilter: 'blur(24px)',
-              borderLeft: '1px solid rgba(255,255,255,0.08)',
+              borderLeft: drawerBorder,
               display:    'flex',
               flexDirection: 'column',
             }}
@@ -277,15 +271,15 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               alignItems:     'center',
               justifyContent: 'space-between',
               padding:        '20px 24px',
-              borderBottom:   '1px solid rgba(255,255,255,0.06)',
+              borderBottom:   `1px solid ${dividerColor}`,
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <div style={{
                   width: 28, height: 28, borderRadius: 7,
-                  background: '#fff',
+                  background: dark ? '#fff' : '#000',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontFamily: "'Plus Jakarta Sans','Inter',sans-serif",
-                  fontWeight: 800, fontSize: 11, color: '#000',
+                  fontWeight: 800, fontSize: 11, color: dark ? '#000' : '#fff',
                 }}>HP</div>
                 <span style={{
                   fontFamily: "'Plus Jakarta Sans','Inter',sans-serif",
@@ -297,8 +291,8 @@ export function Navigation({ theme, onToggleTheme }: Props) {
                 onClick={() => setOpen(false)}
                 style={{
                   width: 32, height: 32, borderRadius: 8,
-                  border: '1px solid rgba(255,255,255,0.1)',
-                  background: 'rgba(255,255,255,0.04)',
+                  border: dark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
+                  background: dark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'var(--text2)',
                 }}
@@ -332,7 +326,7 @@ export function Navigation({ theme, onToggleTheme }: Props) {
                   }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement
-                    el.style.background = 'rgba(255,255,255,0.06)'
+                    el.style.background = hoverBg
                     el.style.color      = 'var(--text)'
                   }}
                   onMouseLeave={e => {
@@ -348,11 +342,11 @@ export function Navigation({ theme, onToggleTheme }: Props) {
 
             {/* Drawer footer — CTA + socials */}
             <div style={{
-              padding:     '20px 16px',
-              borderTop:   '1px solid rgba(255,255,255,0.06)',
-              display:     'flex',
+              padding:       '20px 16px',
+              borderTop:     `1px solid ${dividerColor}`,
+              display:       'flex',
               flexDirection: 'column',
-              gap:         12,
+              gap:           12,
             }}>
               <button
                 onClick={() => go('#contact')}
@@ -360,12 +354,12 @@ export function Navigation({ theme, onToggleTheme }: Props) {
                   width:        '100%',
                   padding:      '13px 20px',
                   borderRadius: 10,
-                  background:   '#fff',
+                  background:   dark ? '#fff' : '#000',
                   border:       'none',
                   fontFamily:   "'Inter',sans-serif",
                   fontWeight:   700,
                   fontSize:     14,
-                  color:        '#000',
+                  color:        dark ? '#000' : '#fff',
                   transition:   'opacity .2s',
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.opacity = '.85' }}
@@ -375,36 +369,36 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               {/* Social row */}
               <div style={{ display: 'flex', gap: 8 }}>
                 {[
-                  { label: 'Behance',  href: 'https://behance.net/harshadparkar'  },
+                  { label: 'Behance',  href: 'https://behance.net/harshadparkar'     },
                   { label: 'LinkedIn', href: 'https://linkedin.com/in/harshadparkar' },
-                  { label: 'Email',    href: 'mailto:parkarharshad11@gmail.com'    },
+                  { label: 'Email',    href: 'mailto:parkarharshad11@gmail.com'       },
                 ].map(s => (
                   <a key={s.label} href={s.href}
                     target={s.href.startsWith('mailto') ? undefined : '_blank'}
                     rel="noopener noreferrer"
                     style={{
-                      flex:          1,
-                      padding:       '9px 8px',
-                      borderRadius:  8,
-                      border:        '1px solid rgba(255,255,255,0.08)',
-                      background:    'rgba(255,255,255,0.03)',
-                      fontFamily:    "'Geist Mono','Space Mono',monospace",
-                      fontSize:      9,
-                      letterSpacing: '.1em',
-                      textTransform: 'uppercase',
-                      color:         'var(--text3)',
+                      flex:           1,
+                      padding:        '9px 8px',
+                      borderRadius:   8,
+                      border:         dark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)',
+                      background:     dark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                      fontFamily:     "'Geist Mono','Space Mono',monospace",
+                      fontSize:       9,
+                      letterSpacing:  '.1em',
+                      textTransform:  'uppercase',
+                      color:          'var(--text3)',
                       textDecoration: 'none',
-                      textAlign:     'center',
-                      transition:    'border-color .18s, color .18s',
+                      textAlign:      'center',
+                      transition:     'border-color .18s, color .18s',
                     }}
                     onMouseEnter={e => {
                       const el = e.currentTarget as HTMLElement
-                      el.style.borderColor = 'rgba(255,255,255,0.2)'
+                      el.style.borderColor = dark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'
                       el.style.color       = 'var(--text2)'
                     }}
                     onMouseLeave={e => {
                       const el = e.currentTarget as HTMLElement
-                      el.style.borderColor = 'rgba(255,255,255,0.08)'
+                      el.style.borderColor = dark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'
                       el.style.color       = 'var(--text3)'
                     }}
                   >{s.label}</a>
@@ -414,7 +408,7 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               <span style={{
                 fontFamily:    "'Geist Mono','Space Mono',monospace",
                 fontSize:      10,
-                color:         'rgba(255,255,255,0.15)',
+                color:         'var(--text3)',
                 letterSpacing: '.06em',
                 textAlign:     'center',
               }}>© 2025 Harshad Parkar</span>

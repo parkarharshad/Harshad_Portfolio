@@ -40,7 +40,7 @@ export function About() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="about" ref={ref} className="page-section" style={{ background: '#0a0a0a' }}>
+    <section id="about" ref={ref} className="page-section" style={{ background: 'var(--bg1)' }}>
       <div className="page-container">
 
         {/* Heading */}
@@ -48,7 +48,7 @@ export function About() {
           initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: .5 }}
           style={{ marginBottom: 64, textAlign: 'center' }}>
           <p style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 10, letterSpacing: '.25em', color: '#52525b', textTransform: 'uppercase', marginBottom: 16 }}>── Testimonials</p>
-          <h2 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 800, fontSize: 'clamp(28px,4vw,48px)', letterSpacing: '-0.03em', color: '#fff', lineHeight: 1.1 }}>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 800, fontSize: 'clamp(28px,4vw,48px)', letterSpacing: '-0.03em', color: 'var(--text)', lineHeight: 1.1 }}>
             What collaborators <span style={{ color: '#a1a1aa' }}>say.</span>
           </h2>
           <p style={{ fontFamily: "'Inter',sans-serif", fontWeight: 300, fontSize: 15, color: '#52525b', marginTop: 16 }}>

@@ -52,8 +52,18 @@
 }
 html.light {
   --bg:    #fff;  --bg1: #fafafa; --bg2: #f4f4f5; --bg3: #e4e4e7;
-  --text:  #000;  --text2:#52525b; --text3:#a1a1aa;
+  --text:  #111;  --text2:#52525b; --text3:#a1a1aa;
   --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.16);
+}
+
+/* Light mode — section backgrounds */
+html.light body { background: #fff; }
+html.light section { background: #fff; }
+html.light .gradient-text {
+  background: linear-gradient(135deg, #111 0%, #52525b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ── RESET ── */

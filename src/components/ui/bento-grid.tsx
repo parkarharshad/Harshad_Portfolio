@@ -36,8 +36,8 @@ export const BentoGridItem = ({
           display: 'flex',
           flexDirection: 'column',
           borderRadius: 14,
-          border: '1px solid rgba(255,255,255,0.08)',
-          background: '#0f0f0f',
+          border: '1px solid var(--border)',
+          background: 'var(--bg1)',
           overflow: 'hidden',
           height: '100%',
           transition: 'border-color 0.3s, background 0.3s',
@@ -45,13 +45,13 @@ export const BentoGridItem = ({
         }}
         onMouseEnter={e => {
           const el = e.currentTarget as HTMLElement;
-          el.style.borderColor = 'rgba(255,255,255,0.14)';
-          el.style.background = '#141414';
+          el.style.borderColor = 'var(--border2)';
+          el.style.background = 'var(--bg2)';
         }}
         onMouseLeave={e => {
           const el = e.currentTarget as HTMLElement;
-          el.style.borderColor = 'rgba(255,255,255,0.08)';
-          el.style.background = '#0f0f0f';
+          el.style.borderColor = 'var(--border)';
+          el.style.background = 'var(--bg1)';
         }}
       >
         {header && <div style={{ width: '100%' }}>{header}</div>}
@@ -59,7 +59,7 @@ export const BentoGridItem = ({
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, padding: '20px 24px', flex: 1 }}>
           {icon && <div>{icon}</div>}
           {title && (
-            <div style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 18, color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.3 }}>
+            <div style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 18, color: 'var(--text)', letterSpacing: '-0.01em', lineHeight: 1.3 }}>
               {title}
             </div>
           )}

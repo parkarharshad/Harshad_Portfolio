@@ -27,7 +27,7 @@ const data = [
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <h4 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 17, color: '#fff', letterSpacing: '-0.01em', marginBottom: 4 }}>
+          <h4 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 17, color: 'var(--text)', letterSpacing: '-0.01em', marginBottom: 4 }}>
             Product Designer
           </h4>
           <p style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 10, color: '#52525b', letterSpacing: '.08em', marginBottom: 4 }}>
@@ -52,7 +52,7 @@ const data = [
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <h4 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 17, color: '#fff', letterSpacing: '-0.01em', marginBottom: 4 }}>
+          <h4 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 17, color: 'var(--text)', letterSpacing: '-0.01em', marginBottom: 4 }}>
             UI/UX Designer
           </h4>
           <p style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 10, color: '#52525b', letterSpacing: '.08em', marginBottom: 4 }}>
@@ -77,7 +77,7 @@ const data = [
     content: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <div>
-          <h4 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 17, color: '#fff', letterSpacing: '-0.01em', marginBottom: 4 }}>
+          <h4 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 17, color: 'var(--text)', letterSpacing: '-0.01em', marginBottom: 4 }}>
             Server Support Specialist
           </h4>
           <p style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 10, color: '#52525b', letterSpacing: '.08em', marginBottom: 4 }}>
@@ -101,13 +101,13 @@ const data = [
 
 export function Experience() {
   return (
-    <section id="experience" style={{ background: '#000', paddingTop: 96, paddingBottom: 96 }}>
+    <section id="experience" style={{ background: 'var(--bg)', paddingTop: 96, paddingBottom: 96 }}>
       <div className="page-container">
 
         {/* Heading */}
         <div style={{ marginBottom: 16 }}>
           <p style={{ fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 10, letterSpacing: '.25em', color: '#52525b', textTransform: 'uppercase', marginBottom: 16 }}>── Experience</p>
-          <h2 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 800, fontSize: 'clamp(28px,4vw,48px)', letterSpacing: '-0.03em', color: '#fff', lineHeight: 1.1 }}>
+          <h2 style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 800, fontSize: 'clamp(28px,4vw,48px)', letterSpacing: '-0.03em', color: 'var(--text)', lineHeight: 1.1 }}>
             Career <span style={{ color: '#a1a1aa' }}>journey.</span>
           </h2>
         </div>
