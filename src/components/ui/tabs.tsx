@@ -1,55 +1,60 @@
 "use client";
+
 import { useState } from "react";
 import { motion } from "motion/react";
+import { cn } from "./utils";
 
 type Tab = {
   title: string;
   value: string;
-  content: React.ReactNode;
+  content?: string | React.ReactNode | any;
 };
 
-export function Tabs({
-  tabs,
+export const Tabs = ({
+  tabs: propTabs,
   containerClassName,
   activeTabClassName,
   tabClassName,
   contentClassName,
+  autoPlay,
+  autoPlayInterval,
 }: {
   tabs: Tab[];
   containerClassName?: string;
   activeTabClassName?: string;
   tabClassName?: string;
   contentClassName?: string;
-}) {
-  const [active, setActive] = useState<Tab>(tabs[0]);
+  autoPlay?: boolean;
+  autoPlayInterval?: number;
+}) => {
+  const [active, setActive] = useState<Tab>(propTabs[0]);
+  const [tabs, setTabs] = useState<Tab[]>(propTabs);
   const [hovering, setHovering] = useState(false);
 
-  const activeIdx = tabs.findIndex((t) => t.value === active.value);
+  const moveSelectedTabToTop = (idx: number) => {
+    const newTabs = [...propTabs];
+    const selectedTab = newTabs.splice(idx, 1);
+    newTabs.unshift(selectedTab[0]);
+    setTabs(newTabs);
+    setActive(newTabs[0]);
+  };
 
   return (
-    <div
-      style={{ width: "100%" }}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      {/* ── Tab pill buttons ── */}
+    <div style={{ width: "100%" }}>
+      {/* ── Tab buttons ── */}
       <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 6,
-          flexWrap: "wrap",
-          marginBottom: 32,
-        }}
-        className={containerClassName}
+        className={cn("flex flex-row flex-wrap items-center justify-start max-w-full w-full", containerClassName)}
+        style={{ position: "relative", zIndex: 20, gap: 6, marginBottom: 16 }}
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
       >
-        {tabs.map((tab) => (
+        {propTabs.map((tab, idx) => (
           <button
             key={tab.value}
-            onClick={() => setActive(tab)}
+            onClick={() => moveSelectedTabToTop(idx)}
             style={{
               position: "relative",
-              padding: "8px 22px",
+              padding: "8px 20px",
               borderRadius: 9999,
               border: "none",
               background: "transparent",
@@ -58,13 +63,14 @@ export function Tabs({
               fontWeight: 500,
               color: active.value === tab.value ? "#fff" : "#6b7280",
               cursor: "pointer",
-              transition: "color 0.2s",
+              flexShrink: 0,
             }}
             className={tabClassName}
           >
             {active.value === tab.value && (
               <motion.div
-                layoutId="active-tab-pill"
+                layoutId="clickedbutton"
+                transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 style={{
                   position: "absolute",
                   inset: 0,
@@ -72,7 +78,6 @@ export function Tabs({
                   background: "rgba(255,255,255,0.1)",
                   border: "1px solid rgba(255,255,255,0.15)",
                 }}
-                transition={{ type: "spring", bounce: 0.3, duration: 0.5 }}
                 className={activeTabClassName}
               />
             )}
@@ -81,80 +86,49 @@ export function Tabs({
         ))}
       </div>
 
-      {/*
-        ── Card stack area ──
-
-        SPACING FIX:
-        • paddingTop: 100 → gives room above the active card for 2 peek cards
-          to fan upward WITHOUT overlapping the tab buttons
-        • The inner div height is just the active card height (520px)
-        • Cards translate with NEGATIVE y (upward) so they appear ABOVE active card
-        • overflow: visible on the outer so peeking cards aren't clipped
-      */}
+      {/* ── Card stack ── */}
+      {/* paddingTop gives room for hover-peek cards to fan upward without hitting the tab bar */}
       <div
-        style={{
-          position: "relative",
-          width: "100%",
-          paddingTop: 100,          // ← space for peek cards above
-          perspective: "1000px",
-          overflow: "visible",
-        }}
+        style={{ position: "relative", width: "100%", paddingTop: 120, overflow: "visible" }}
         className={contentClassName}
       >
-        <div style={{ position: "relative", width: "100%", height: 520 }}>
-          {tabs.map((tab, i) => {
-            const offset = i - activeIdx;
-
-            // offset  0 → active card, always visible at y=0
-            // offset  1 → 1st peek card, fans UP on hover
-            // offset  2 → 2nd peek card, fans even higher on hover
-            // offset <0 or >2 → hidden always
-
-            let y = 0;
-            let scale = 1;
-            let opacity = 0;  // default: hidden
-            let zIndex = 0;
-
-            if (offset === 0) {
-              y = 0;
-              scale = 1;
-              opacity = 1;
-              zIndex = 10;
-            } else if (offset === 1) {
-              y = hovering ? -52 : 0;
-              scale = hovering ? 0.96 : 1;
-              opacity = hovering ? 1 : 0;
-              zIndex = 9;
-            } else if (offset === 2) {
-              y = hovering ? -92 : 0;
-              scale = hovering ? 0.92 : 1;
-              opacity = hovering ? 1 : 0;
-              zIndex = 8;
-            }
-            // offset < 0 or > 2 stays at opacity 0
-
-            return (
-              <motion.div
-                key={tab.value}
-                animate={{ y, scale, opacity, zIndex }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  transformOrigin: "top center",
-                  pointerEvents: offset === 0 ? "auto" : "none",
-                  willChange: "transform, opacity",
-                }}
-              >
-                {tab.content}
-              </motion.div>
-            );
-          })}
+        <div style={{ position: "relative", width: "100%", height: 680 }}>
+          {tabs.map((tab, idx) => (
+            <motion.div
+              key={tab.value}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: tabs.length - idx,
+                pointerEvents: idx === 0 ? "auto" : "none",
+              }}
+              animate={{
+                scale: 1 - idx * 0.07,
+                y: hovering ? idx * -40 : idx * 8,
+                opacity: idx < 4 ? Math.max(0, 1 - idx * 0.2) : 0,
+              }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            >
+              {idx === 0 ? (
+                <motion.div
+                  key={active.value}
+                  style={{ width: "100%", height: "100%" }}
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                >
+                  {tab.content}
+                </motion.div>
+              ) : (
+                tab.content
+              )}
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};

@@ -78,25 +78,27 @@ function AnimatedStat({ value, suffix = '', label }: { value: number; suffix?: s
   )
 }
 
-const ACCENT = '#f59e0b'
-const ACCENT_DARK = '#d97706'
+const ACCENT = '#E72547'
+const ACCENT_DARK = '#c41e3a'
 
 // ─────────────────────────────────────────
-// Phone Mockup
+// Desktop Mockup (matches RAMS / iNode style)
 // ─────────────────────────────────────────
 
-function PhoneMockup({ screen }: { screen: { tag: string; title: string; desc: string; content: React.ReactNode } }) {
+function DesktopMockup({ screen }: { screen: { tag: string; title: string; desc: string; content: React.ReactNode; imageSrc?: string } }) {
   return (
     <div style={{ width: '100%', height: '100%', borderRadius: 20, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(14,16,23,0.9)', display: 'flex', flexDirection: 'column' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.02)', flexShrink: 0 }}>
         <div style={{ display: 'flex', gap: 6 }}>
           {['#ff5f57', '#ffbd2e', '#28c840'].map(c => <span key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c, display: 'block' }} />)}
         </div>
-        <div style={{ flex: 1, height: 20, borderRadius: 6, background: 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', padding: '0 12px', fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 9, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.1em' }}>MSC Go</div>
+        <div style={{ flex: 1, height: 20, borderRadius: 6, background: 'rgba(255,255,255,0.04)', display: 'flex', alignItems: 'center', padding: '0 12px', fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 9, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.1em' }}>msc-go.app</div>
         <div style={{ background: `${ACCENT}18`, border: `1px solid ${ACCENT}44`, borderRadius: 20, padding: '3px 12px', fontFamily: "'Geist Mono','Space Mono',monospace", fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: ACCENT }}>{screen.tag}</div>
       </div>
-      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)' }}>
-        {screen.content}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden', background: 'linear-gradient(160deg, #0f172a 0%, #1e1b4b 60%, #0f172a 100%)' }}>
+        {screen.imageSrc ? (
+          <img src={screen.imageSrc} alt={screen.title} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }} />
+        ) : screen.content}
       </div>
       <div style={{ padding: '18px 24px', borderTop: '1px solid rgba(255,255,255,0.06)', flexShrink: 0, background: 'rgba(14,16,23,0.95)' }}>
         <div style={{ fontFamily: "'Plus Jakarta Sans','Inter',sans-serif", fontWeight: 700, fontSize: 16, color: '#e4e6eb', marginBottom: 5 }}>{screen.title}</div>
@@ -284,11 +286,11 @@ function EmployeeScreen() {
 }
 
 const MSC_SCREENS = [
-  { title: 'Dashboard', value: 'dashboard', tag: '01 — Home', title2: 'Manager Dashboard', desc: 'Real-time revenue, booking counts, and weekly performance charts — everything a workshop owner needs at a glance.', content: <DashboardScreen /> },
-  { title: 'Onboarding', value: 'onboarding', tag: '02 — Setup', title2: 'Workshop Setup Flow', desc: 'Structured 5-step onboarding guides workshops from registration to going LIVE — minimizing drop-off at each step.', content: <OnboardingScreen /> },
-  { title: 'Bookings', value: 'bookings', tag: '03 — Bookings', title2: 'Booking Management', desc: 'Accept, track, and manage the full booking lifecycle — from pending to in-progress to completed, per vehicle and service.', content: <BookingsScreen /> },
-  { title: 'My Workshop', value: 'workshop', tag: '04 — Workshop', title2: 'Workshop Configuration', desc: 'Edit services, documents, location, and images — supports multiple workshop management from one account.', content: <WorkshopScreen /> },
-  { title: 'Team', value: 'employees', tag: '05 — Team', title2: 'Employee Management', desc: 'Add mechanics and managers, assign roles and workshops, and monitor real-time workload distribution.', content: <EmployeeScreen /> },
+  { title: 'Dashboard', value: 'dashboard', tag: '01 — Home', title2: 'Manager Dashboard', desc: 'Real-time revenue, booking counts, and weekly performance charts — everything a workshop owner needs at a glance.', content: <DashboardScreen />, imageSrc: '/MSCDashboard.png' },
+  { title: 'Onboarding', value: 'onboarding', tag: '02 — Setup', title2: 'Workshop Setup Flow', desc: 'Structured 5-step onboarding guides workshops from registration to going LIVE — minimizing drop-off at each step.', content: <OnboardingScreen />, imageSrc: '/Onboarding.png' },
+  { title: 'Bookings', value: 'bookings', tag: '03 — Bookings', title2: 'Booking Management', desc: 'Accept, track, and manage the full booking lifecycle — from pending to in-progress to completed, per vehicle and service.', content: <BookingsScreen />, imageSrc: '/Booking.png' },
+  { title: 'My Workshop', value: 'workshop', tag: '04 — Workshop', title2: 'Workshop Configuration', desc: 'Edit services, documents, location, and images — supports multiple workshop management from one account.', content: <WorkshopScreen />, imageSrc: '/My Workshop.png' },
+  { title: 'More', value: 'employees', tag: '05 — More', title2: 'More UI Screens', desc: 'Additional screens including profile, settings, checkout, and other key flows across the MSC Go experience.', content: <EmployeeScreen />, imageSrc: '/More.jpg' },
 ]
 
 
@@ -583,8 +585,14 @@ export function MSCGoCaseStudy({ onBack }: MSCGoCaseStudyProps) {
               Built on a 384×854 mobile frame with a 16px grid — every module from onboarding to analytics, designed for the field.
             </p>
           </Reveal>
-          <div style={{ perspective: '1000px', paddingBottom: 40, overflow: 'visible' }}>
-            <MobileTabs />
+          <div style={{ perspective: "1000px", overflow: "visible" }}>
+            <Tabs
+              tabs={MSC_SCREENS.map(s => ({
+                title: s.title,
+                value: s.value,
+                content: <DesktopMockup screen={{ tag: s.tag, title: s.title2, desc: s.desc, content: s.content, imageSrc: s.imageSrc }} />,
+              }))}
+            />
           </div>
         </div>
       </section>

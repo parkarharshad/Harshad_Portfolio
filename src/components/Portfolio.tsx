@@ -23,61 +23,29 @@ function RamsHeader() {
 }
 
 function MSCGoHeader() {
-  const variants = { initial:{ y:4,opacity:0.8 }, animate:{ y:0,opacity:1 } }
   return (
-    <motion.div initial="initial" whileHover="animate"
-      style={{ background:'#f8fafc',minHeight:200,display:'flex',alignItems:'center',justifyContent:'center',padding:24,gap:10 }}>
-      {[{title:'Track'},{title:'Book'},{title:'Status'}].map((s,i)=>(
-        <motion.div key={s.title} variants={variants} transition={{ delay:i*0.08 }}
-          style={{ flex:1,background:'#fff',borderRadius:10,border:'1px solid #e2e8f0',overflow:'hidden',boxShadow:'0 2px 8px rgba(0,0,0,0.06)' }}>
-          <div style={{ background:'#0f172a',padding:'6px 8px',textAlign:'center' }}>
-            <div style={{ fontSize:8,color:'#fff',fontWeight:600 }}>{s.title}</div>
-          </div>
-          <div style={{ padding:'8px 6px',display:'flex',flexDirection:'column',gap:4 }}>
-            {[80,60,90,70].map((w,j)=>(
-              <div key={j} style={{ height:4,borderRadius:2,background:'#e2e8f0',width:`${w}%` }}/>
-            ))}
-            <div style={{ display:'flex',alignItems:'center',gap:3,marginTop:2 }}>
-              <span style={{ width:5,height:5,borderRadius:'50%',background:'#22c55e',display:'block' }}/>
-              <span style={{ fontSize:7,color:'#94a3b8' }}>Live</span>
-            </div>
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
+    <div
+      className="w-full rounded-lg overflow-hidden"
+      style={{
+        height: 220,
+        backgroundImage: 'url(/Hero.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        backgroundRepeat: 'no-repeat',
+      }}
+    />
   )
 }
 
 function INodeHeader() {
-  const variants = {
-    initial:{ opacity:0.7 },
-    animate:{ opacity:1, transition:{ staggerChildren:0.05 } }
-  }
-  const item = { initial:{ scale:0.97 }, animate:{ scale:1 } }
   return (
-    <motion.div initial="initial" whileHover="animate" variants={variants}
-      style={{ background:'#0d1117',minHeight:200,padding:'20px 20px' }}>
-      <div style={{ display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:8 }}>
-        <span style={{ fontSize:9,fontWeight:600,color:'#e2e8f0',fontFamily:'system-ui' }}>iNode Control Panel</span>
-        <div style={{ display:'flex',gap:4 }}>
-          {['#3b82f6','#6366f1'].map(c=><span key={c} style={{ width:7,height:7,borderRadius:'50%',background:c }}/>)}
-        </div>
-      </div>
-      <div style={{ display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:5 }}>
-        {[{l:'D-01',v:'98%',s:'Online',g:true},{l:'D-02',v:'87%',s:'Online',g:true},{l:'D-03',v:'62%',s:'Offline',g:false},
-          {l:'D-04',v:'94%',s:'Online',g:true},{l:'D-05',v:'76%',s:'Online',g:true},{l:'D-06',v:'0%',s:'Offline',g:false}].map((d,i)=>(
-          <motion.div key={i} variants={item}
-            style={{ background:'#161b22',borderRadius:6,padding:'6px 7px',border:'1px solid #1e293b' }}>
-            <div style={{ fontSize:7,color:'#64748b',marginBottom:2 }}>{d.l}</div>
-            <div style={{ fontSize:12,fontWeight:700,color:'#f1f5f9' }}>{d.v}</div>
-            <div style={{ display:'flex',alignItems:'center',gap:3,marginTop:2 }}>
-              <span style={{ width:4,height:4,borderRadius:'50%',background:d.g?'#22c55e':'#ef4444',display:'block' }}/>
-              <span style={{ fontSize:7,color:'#64748b' }}>{d.s}</span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
+    <div style={{ overflow:'hidden', minHeight:200, background:'#0d1117' }}>
+      <img
+        src="/Inode Home.png"
+        alt="iNode Home"
+        style={{ width:'100%', height:'100%', objectFit:'cover', display:'block' }}
+      />
+    </div>
   )
 }
 

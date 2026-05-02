@@ -333,11 +333,7 @@ function MockupShowcase() {
         {/*
           Wrapper: perspective for 3D depth, overflow:visible so peek cards fan freely
         */}
-        <div style={{
-          perspective: '1000px',
-          paddingBottom: 40,
-          overflow: 'visible',
-        }}>
+        <div style={{ perspective: "1000px", overflow: "visible" }}>
           <Tabs
             tabs={tabItems}
             autoPlay={true}

@@ -395,11 +395,11 @@ function DashboardScreen() {
 // ─────────────────────────────────────────
 
 const INODE_SCREENS = [
-  { title: 'Project Hub', value: 'dashboard', tag: '01 — Overview', title2: 'Project Dashboard', desc: 'Complete project overview — design flow, module completion progress, and DPR status at a glance for engineers and reviewers.', content: <DashboardScreen /> },
-  { title: 'Process', value: 'process', tag: '02 — Process', title2: 'Water Quality & Process Selection', desc: 'Maps raw water parameters (turbidity, pH, iron, TDS) to a compliant treatment train — referenced against BIS IS 10500, CPHEEO, and WHO guidelines.', content: <ProcessSelectionScreen /> },
-  { title: 'Hydraulics', value: 'hydraulics', tag: '03 — Hydraulics', title2: 'Hydraulic Design Engine', desc: 'Unit-wise head loss calculation, HGL/EGL profile visualization, pump TDH estimation, and gravity flow validation across the full treatment train.', content: <HydraulicScreen /> },
-  { title: 'Sizing', value: 'sizing', tag: '04 — Sizing', title2: 'Equipment & Civil Sizing', desc: 'Auto-computed detention times, surface overflow rates, filter loading rates, and pipe diameters — flagging any values exceeding CPHEEO limits.', content: <SizingScreen /> },
-  { title: 'DPR Output', value: 'dpr', tag: '05 — DPR', title2: 'DPR & Tender-Ready Documents', desc: 'One-click generation of design basis reports, hydraulic notes, sizing sheets, BOQ references, and technical specifications — reducing turnaround by 60%.', content: <DPRScreen /> },
+  { title: 'Dashboard', value: 'dashboard', tag: '01 — Dashboard', title2: 'Project Dashboard', desc: 'Complete project overview — design flow, module completion progress, and DPR status at a glance for engineers and reviewers.', content: <img src="/Inode Dashboard.jpg" alt="iNode Dashboard" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> },
+  { title: 'Live Monitor', value: 'process', tag: '02 — Live Monitor', title2: 'Water Quality & Process Selection', desc: 'Maps raw water parameters (turbidity, pH, iron, TDS) to a compliant treatment train — referenced against BIS IS 10500, CPHEEO, and WHO guidelines.', content: <img src="/Live Monitor.png" alt="Live Monitor" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> },
+  { title: 'Location Notification', value: 'hydraulics', tag: '03 — Location Notification', title2: 'Hydraulic Design Engine', desc: 'Unit-wise head loss calculation, HGL/EGL profile visualization, pump TDH estimation, and gravity flow validation across the full treatment train.', content: <img src="/Location Notification.png" alt="Location Notification" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> },
+  { title: 'Chat Window', value: 'sizing', tag: '04 — Chat Window', title2: 'Equipment & Civil Sizing', desc: 'Auto-computed detention times, surface overflow rates, filter loading rates, and pipe diameters — flagging any values exceeding CPHEEO limits.', content: <img src="/Chatgpt.jpg" alt="Chat Window" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> },
+  { title: 'Analysis', value: 'dpr', tag: '05 — Analysis', title2: 'DPR & Tender-Ready Documents', desc: 'One-click generation of design basis reports, hydraulic notes, sizing sheets, BOQ references, and technical specifications — reducing turnaround by 60%.', content: <img src="/Analysis.jpg" alt="Analysis" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }} /> },
 ]
 
 
@@ -648,7 +648,7 @@ export function INodeCaseStudy({ onBack }: INodeCaseStudyProps) {
               From raw water intake to treated water delivery — every engineering module built for consultants, EPC teams, and training institutions.
             </p>
           </Reveal>
-          <div style={{ perspective: '1000px', paddingBottom: 40, overflow: 'visible' }}>
+          <div style={{ perspective: "1000px", overflow: "visible" }}>
             <Tabs
               tabs={INODE_SCREENS.map(s => ({
                 title: s.title,
