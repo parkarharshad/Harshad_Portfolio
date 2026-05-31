@@ -100,21 +100,7 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               onClick={() => { setOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
               style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none' }}
             >
-              <div style={{
-                width: 32, height: 32, borderRadius: 8,
-                background: dark ? '#fff' : '#000',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: "'Plus Jakarta Sans','Inter',sans-serif",
-                fontWeight: 800, fontSize: 12, color: dark ? '#000' : '#fff',
-                flexShrink: 0,
-              }}>HP</div>
-              <span style={{
-                fontFamily:    "'Plus Jakarta Sans','Inter',sans-serif",
-                fontWeight:    800,
-                fontSize:      15,
-                color:         'var(--text)',
-                letterSpacing: '-0.02em',
-              }}>Harshad Parkar</span>
+              <img src="/logo.png" alt="HarshaaDesignss" style={{ height: 32, width: 'auto', display: 'block', objectFit: 'contain' }} />
             </button>
 
             {/* ── Desktop nav (≥768px) ─────────────────────────── */}
@@ -273,19 +259,8 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               padding:        '20px 24px',
               borderBottom:   `1px solid ${dividerColor}`,
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div style={{
-                  width: 28, height: 28, borderRadius: 7,
-                  background: dark ? '#fff' : '#000',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontFamily: "'Plus Jakarta Sans','Inter',sans-serif",
-                  fontWeight: 800, fontSize: 11, color: dark ? '#000' : '#fff',
-                }}>HP</div>
-                <span style={{
-                  fontFamily: "'Plus Jakarta Sans','Inter',sans-serif",
-                  fontWeight: 700, fontSize: 14, color: 'var(--text)',
-                  letterSpacing: '-0.02em',
-                }}>Harshad Parkar</span>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <img src="/logo.png" alt="HarshaaDesignss" style={{ height: 28, width: 'auto', display: 'block', objectFit: 'contain' }} />
               </div>
               <button
                 onClick={() => setOpen(false)}
