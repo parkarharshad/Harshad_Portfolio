@@ -100,7 +100,7 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               onClick={() => { setOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
               style={{ display: 'flex', alignItems: 'center', gap: 10, background: 'none', border: 'none' }}
             >
-              <img src="/logo.png" alt="HarshaaDesignss" style={{ height: 44, width: 'auto', display: 'block', objectFit: 'contain' }} />
+              <img src="/logo.png" alt="HarshaaDesignss" style={{ height: 72, width: 'auto', display: 'block', objectFit: 'contain' }} />
             </button>
 
             {/* ── Desktop nav (≥768px) ─────────────────────────── */}
@@ -260,7 +260,7 @@ export function Navigation({ theme, onToggleTheme }: Props) {
               borderBottom:   `1px solid ${dividerColor}`,
             }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img src="/logo.png" alt="HarshaaDesignss" style={{ height: 40, width: 'auto', display: 'block', objectFit: 'contain' }} />
+                <img src="/logo.png" alt="HarshaaDesignss" style={{ height: 64, width: 'auto', display: 'block', objectFit: 'contain' }} />
               </div>
               <button
                 onClick={() => setOpen(false)}
